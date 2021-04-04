@@ -250,6 +250,7 @@
     > i {
       padding-top: 0.35rem;
       &:hover {
+        cursor: pointer;
         @extend %btn-share-hovor;
       }
     }
