@@ -1,6 +1,7 @@
 /*
  * Calculate the Timeago
  */
+const LOCALE = 'pt-BR';
 
 $(function () {
 
@@ -12,21 +13,21 @@ $(function () {
 
     function timeago(iso, preposition) {
         let now = new Date();
-        let past = new Date(iso);
+        let past = new Date(''+iso);
         let prep = (typeof preposition !== "undefined" ? `${preposition} ` : "");
 
         if (past.getFullYear() !== now.getFullYear()) {
             toRefresh -= 1;
-            return prep + past.toLocaleString("en-US", {
+            return prep + past.toLocaleString(LOCALE, {
                 year: "numeric",
-                month: "short",
+                month: "long",
                 day: "numeric"
             });
         }
 
         if (past.getMonth() !== now.getMonth()) {
             toRefresh -= 1;
-            return prep + past.toLocaleString("en-US", {
+            return prep + past.toLocaleString(LOCALE, {
                 month: "short",
                 day: "numeric"
             });
@@ -58,7 +59,8 @@ $(function () {
             if ($(this).children("i").length > 0) {
                 let node = $(this).children("i");
                 let date = node.text(); /* ISO Date: "YYYY-MM-DDTHH:MM:SSZ" */
-                $(this).text(timeago(date, $(this).attr("prep")));
+                let preposition = $(this).attr("prep");
+                $(this).text(timeago(date, preposition));
                 $(this).append(node);
             }
         });

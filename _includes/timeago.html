@@ -3,15 +3,34 @@
   See: /assets/js/_utils/timeage.js
 -->
 
-{% assign tooltip_df = site.data.date_format.tooltip | default: '%a, %b %e, %Y, %l:%M %p %z' %}
-{% assign post_long_df = site.data.date_format.post.long | default: '%b %e, %Y' %}
-{% assign post_short_df = site.data.date_format.post.short | default: '%b %e' %}
+{% assign tooltip_df = site.data.date_format.tooltip | default: '%A, %e de %B de %Y, %H:%M' %}
+{% assign post_long_df = site.data.date_format.post.long | default: '%e de %B de %Y' %}
+{% assign post_short_df = site.data.date_format.post.short | default: '%e de %B' %}
 
 <span class="timeago {% if include.class %}{{ include.class }}{% endif %}"
   {% if include.tooltip %}
     data-toggle="tooltip"
     data-placement="bottom"
-    title="{{ include.date | date: tooltip_df }}"
+    title="{{ include.date | date: tooltip_df
+        | replace: 'Monday', 'Segunda-feira'
+        | replace: 'Tuesday', 'Terça-feira'
+        | replace: 'Wednesday', 'Quarta-feira'
+        | replace: 'Thursday', 'Quinta-feira'
+        | replace: 'Friday', 'Sexta-feira'
+        | replace: 'Saturday', 'Sábado'
+        | replace: 'Sunday', 'Domingo'
+        | replace: 'January', 'Janeiro'
+        | replace: 'February', 'Fevereiro'
+        | replace: 'March', 'Março'
+        | replace: 'April', 'Abril'
+        | replace: 'May', 'Maio'
+        | replace: 'June', 'Junho'
+        | replace: 'July', 'Julho'
+        | replace: 'August', 'Agosto'
+        | replace: 'September', 'Setembro'
+        | replace: 'October', 'Outubro'
+        | replace: 'November', 'Novembro'
+        | replace: 'December', 'Dezembro' }}"
   {% endif %}
 
   {% if include.prefix %}prefix="{{ include.prefix }} "{% endif%}
