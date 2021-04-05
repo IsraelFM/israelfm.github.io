@@ -193,6 +193,15 @@ if [ $? -ne 0 ]; then
 fi;
 ```
 
+#### Javascript
+
+```javascript
+export default (req, res) => {
+  res.statusCode = 200
+  res.json({ name: 'John Doe' })
+}
+```
+
 #### Liquid
 
 {% raw %}

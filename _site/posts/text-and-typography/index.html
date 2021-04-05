@@ -36,7 +36,7 @@
 <meta property="twitter:title" content="Text and Typography" />
 <meta name="google-site-verification" content="google_meta_tag_verification" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","author":{"@type":"Person","name":"Cotes Chung"},"headline":"Text and Typography","dateModified":"2019-08-08T00:33:00-03:00","datePublished":"2019-08-08T00:33:00-03:00","description":"This post is to show Markdown syntax rendering on Chirpy, you can also use it as an example of writing. Now, let’s start looking at text and typography.","mainEntityOfPage":{"@type":"WebPage","@id":"https://israelfm.github.io/posts/text-and-typography/"},"url":"https://israelfm.github.io/posts/text-and-typography/","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://israelfm.github.io/posts/text-and-typography/"},"author":{"@type":"Person","name":"Cotes Chung"},"headline":"Text and Typography","dateModified":"2019-08-08T00:33:00-03:00","datePublished":"2019-08-08T00:33:00-03:00","description":"This post is to show Markdown syntax rendering on Chirpy, you can also use it as an example of writing. Now, let’s start looking at text and typography.","url":"https://israelfm.github.io/posts/text-and-typography/","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -122,6 +122,14 @@
 
   <script defer
     src="https://cdn.jsdelivr.net/combine/npm/popper.js@1.15.0,npm/bootstrap@4/dist/js/bootstrap.min.js"></script>
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-noconflict/ace.min.js"></script>
+  <script>
+        ace.config.set(
+            "basePath", 
+            "https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-noconflict/"
+        )
+  </script> -->
 
   <!--
   JS selector for site.
@@ -501,7 +509,7 @@
 
 
 
-<!--
+<!-- 
   In order to allow a wide table to scroll horizontally,
   we suround the markdown table with `<div class="table-wrapper">` and `</div>`
 -->
@@ -599,7 +607,7 @@
 
 
 <!-- return element -->
-<span class="readtime" data-toggle="tooltip" data-placement="bottom" title="674 words">3 min</span>
+<span class="readtime" data-toggle="tooltip" data-placement="bottom" title="694 words">3 min</span>
 
 
                     <!-- page views -->
@@ -849,6 +857,18 @@ PYENV_SHELL=bash
     </span><span class="nb">echo</span> <span class="s2">"The command was not successful."</span><span class="p">;</span>
     <span class="c">#do the needful / exit</span>
 <span class="k">fi</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></div></div>
+
+<h4 id="javascript">Javascript</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">export</span> <span class="k">default</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">200</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">John Doe</span><span class="dl">'</span> <span class="p">})</span>
+<span class="p">}</span>
 </pre></td></tr></tbody></table></code></div></div>
 
 <h4 id="liquid">Liquid</h4>
