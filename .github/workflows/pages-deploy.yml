@@ -44,8 +44,10 @@ jobs:
 
       - name: Deploy
         run: |
-          mv _site$BASE_URL _site-rename
-          rm -rf _site
-          mv _site-rename _site
+          if [[ -n $BASE_URL ]]; then
+            mv _site$BASE_URL _site-rename
+            rm -rf _site
+            mv _site-rename _site
+          fi
 
           bash tools/deploy.sh
