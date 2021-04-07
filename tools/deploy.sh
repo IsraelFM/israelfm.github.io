@@ -19,7 +19,9 @@ init() {
     _no_branch=true
     git checkout -b "$PAGES_BRANCH"
   else
+    git stash
     git checkout "$PAGES_BRANCH"
+    git stash apply
   fi
 }
 
