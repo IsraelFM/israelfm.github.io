@@ -21,7 +21,7 @@ init() {
   else
     git stash
     git checkout "$PAGES_BRANCH"
-    git stash apply
+    # git stash apply
   fi
 }
 
