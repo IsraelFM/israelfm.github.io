@@ -2,7 +2,7 @@
   "name": "little-things",
   "version": "1.0.0",
   "description": "Content and experiences that I find interesting and that have increased in my professional development",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
