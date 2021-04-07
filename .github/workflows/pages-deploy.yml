@@ -11,10 +11,7 @@ on:
 jobs:
   continuous-delivery:
 
-    runs-on: ubuntu-20.04
-
-    env:
-      GEMS_PATH: vendor/bundle
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -22,18 +19,11 @@ jobs:
         with:
           fetch-depth: 0  # for posts's lastmod
 
-      - name: Bundle Caching
-        uses: actions/cache@v2
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          path: ${{ env.GEMS_PATH }}
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-
-      - name: Bundle Install
-        run: |
-          bundle config path ${{ env.GEMS_PATH }}
-          bundle install --jobs 4 --retry 3
+          ruby-version: 2.7
+          bundler-cache: true
 
       - name: Check baseurl
         run: |
