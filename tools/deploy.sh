@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Deploy the content of _site to 'origin/<pages_branch>'
+# Deploy the content of _site to 'origin/<PAGES_BRANCH>'
 
 set -eu
 
