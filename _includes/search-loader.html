@@ -1,6 +1,9 @@
 <!--
-  Jekyll Simple Search loader
-  See: <https://github.com/christian-fei/Simple-Jekyll-Search>
+	Lottie player Web Component
+	See: https://github.com/LottieFiles/lottie-player
+----
+	Jekyll Simple Search loader
+	See: <https://github.com/christian-fei/Simple-Jekyll-Search>
 -->
 
 {% capture result_elem %}
@@ -14,7 +17,16 @@
 </div>
 {% endcapture %}
 
-{% capture not_found %}<p class="mt-5">Oops! No result founds.</p>{% endcapture %}
+
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+{% capture not_found %}
+	<lottie-player src="assets/animation/notfound.json" background="transparent" speed="1" style="width: 400px; height: 400px;" autoplay></lottie-player>
+	<div class="d-flex flex-row flex-wrap align-items-start align-self-center font-weight-bold" style="font-size: xx-large">
+		<h1 class="mb-0" style="flex-basis: 15%;">Oops!</h1>
+		<h3 class="mb-0 text-muted" style="flex-basis: 100%;">Nenhum resultado encontrado.</h3>
+	</div>
+{% endcapture %}
 
 <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js"></script>
 
@@ -24,7 +36,7 @@
         resultsContainer: document.getElementById('search-results'),
         json: '{{ "/assets/js/data/search.json" | relative_url }}',
         searchResultTemplate: '{{ result_elem | strip_newlines }}',
-        noResultsText: '{{ not_found }}',
+        noResultsText: `{{ not_found }}`,
         templateMiddleware: function (prop, value, template) {
             if (prop === 'categories') {
                 if (value === '') {

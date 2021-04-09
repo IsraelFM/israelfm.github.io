@@ -882,6 +882,7 @@ $sidebar-display: "sidebar-display";
     color: var(--search-icon-color);
   }
   .fa-times-circle { /* button 'clean up' */
+    cursor: pointer;
     visibility: hidden;
   }
 }
