@@ -1,16 +1,16 @@
 # The label text of site.
 
 panel:
-  lastmod: Recent Update
-  trending_tags: Trending Tags
-  toc: Contents
+  lastmod: Atualizados recentemente
+  trending_tags: Tags populares
+  toc: Conteúdo
 
 post:
-  relate_posts: Further Reading
-  share: Share
+  relate_posts: Posts relacionados
+  share: Compartilhar
   button:
-    next: Newer
-    previous: Older
+    next: Mais recente
+    previous: Mais antigo
 
 search_hint: Pesquisar   # text show on search bar
 
