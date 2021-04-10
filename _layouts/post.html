@@ -25,7 +25,7 @@ layout: default
                     {% if page.last_modified_at %}
                     <span>
                         {% include timeago.html date=page.last_modified_at
-                        class="lastmod" prefix="Updated" tooltip=true %}
+                        class="lastmod" prefix="Atualizado" tooltip=true %}
                     </span>
                     {% endif %}
 
@@ -44,7 +44,7 @@ layout: default
             <div class="post-content">
 
                 {% if page.image.src %}
-                <img src="{{ page.image.src }}" class="preview-img" alt="{{ page.image.alt | default: " Preview Image"
+                <img src="{{ page.image.src }}" class="preview-img" alt="{{ page.image.alt | default: " Pré-visualização da Imagem"
                     }}">
                 {% endif %}
 
@@ -78,13 +78,12 @@ layout: default
                 </div>
                 {% endif %}
 
-                <div class="post-tail-bottom
-          d-flex justify-content-between align-items-center mt-3 pt-5 pb-2">
+                <div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2">
                     {% if site.data.rights.license %}
                     <div class="license-wrapper">
-                        This post is licensed under
+                        Esta postagem está licenciada sob a licença
                         <a href="{{ site.data.rights.license.link }}">{{ site.data.rights.license.name }}</a>
-                        by the author.
+                        pelo autor.
                     </div>
                     {% endif %}
 

@@ -51,7 +51,7 @@ $(function () {
             return minute + " minute" + (minute > 1 ? "s" : "") + " ago";
         }
 
-        return "just now";
+        return "agora mesmo";
     }
 
     function updateTimeago() {
