@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Docker: comentários e notas | DevUp</title>
+<meta name="keywords" content="docker, container">
+<meta name="description" content="Comentários pontuais do meu primeiro contato com Docker">
+<meta name="author" content="Israel">
+<link rel="canonical" href="https://israelfm.github.io/posts/docker-basics/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bccfefac377bc340f06c260aed1bddf49a4354816d7c570d6aac75a997986c95.css" integrity="sha256-vM/vrDd7w0DwbCYK7Rvd9JpDVIFtfFcNaqx1qZeYbJU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://israelfm.github.io/assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://israelfm.github.io/assets/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://israelfm.github.io/assets/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://israelfm.github.io/assets/apple-icon-precomposed.png">
+<link rel="mask-icon" href="https://israelfm.github.io/assets/apple-icon-precomposed.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Docker: comentários e notas" />
+<meta property="og:description" content="Comentários pontuais do meu primeiro contato com Docker" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://israelfm.github.io/posts/docker-basics/" />
+<meta property="og:image" content="https://israelfm.github.io/posts/images/docker-basics-cover.jpeg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-15T22:51:31-03:00" />
+<meta property="article:modified_time" content="2022-11-15T22:51:31-03:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://israelfm.github.io/posts/images/docker-basics-cover.jpeg" />
+<meta name="twitter:title" content="Docker: comentários e notas"/>
+<meta name="twitter:description" content="Comentários pontuais do meu primeiro contato com Docker"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://israelfm.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Docker: comentários e notas",
+      "item": "https://israelfm.github.io/posts/docker-basics/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Docker: comentários e notas",
+  "name": "Docker: comentários e notas",
+  "description": "Comentários pontuais do meu primeiro contato com Docker",
+  "keywords": [
+    "docker", "container"
+  ],
+  "articleBody": "Porque aprender sobre o Docker? Porque simplesmente é uma das bases do currículo moderno. Você, que está a procura de uma oportunidade naquela empresa gigante, sonhando alto, precisa saber pelo menos a base, para que tenha a condição de se encaixar como um potencial competidor.\nÉ uma ferramenta muito útil quando falamos de desenvolvimento. Na sequência falaremos de alguns dos motivos mais icônicos.\nQuando iniciamos um projeto, é costumeiro termos de instalar alguns programas, sendo que toda a instalação é feita “na mão”. Além disso, alguns desses programas raramente são utilizados após a finalização do projeto. A consequência desse processo, direto na máquina, resulta em “lixo” e memória inutilmente consumida para manter programas, de certa forma, inativos.\nA situação se repete a cada vez que eu inicio um projeto, um clássico loop infinito de caos e desordem.\nEm um ambiente corporativo, a prática supracitada é definitivamente inviável. Primeiro, pelo esforço que seria demandado e segundo pela inconsistência entre máquinas, já que cada um terá uma configuração própria, além de softwares já instalados e até mesmo Sistema Operacional (SO) diferente entre si. Afinal, quem nunca ouviu:\n Na minha máquina funciona!\n— Justicativa do dev após o cliente reclamar de bug feature\n Agora, você deve estar me perguntando, “como assim direto na máquina? Tem outra forma que não essa?”. Ao que eu te respondo, “é claro, te apresento o Docker”.\nO que é Docker? É uma ferramenta1 classificada como container runtime 2. Isso significa que com o Docker eu consigo subir processos (containers) individuais, utilizando a virtualização do sistema operacional.\nContainerização vs Virtualização A grande diferença de um container para uma máquina virtual (Virtual Machine - VM), é que não ocorre a instalação de todo o sistema operacional.\nQuando há uma máquina virtual operando, ela virtualiza o hardware. Sendo assim, ela passa a ocupar um espaço real de um SO completo na minha máquina.\nAgora, utilizando container a situação é outra. Nós usamos o conceito de imagens – descritivo do que haverá no container – relativamente pequenas que sobem e rodam apenas o que for preciso.\nPara finalizar a instalação de uma VM, é necessário dar boot nela. Dispensamos esse processo em container, uma vez que assim que ele subir o processo já estará operando.\nInstalação O Docker foi originalmente criado para plataformas Linux. Mas com a demanda crescente, hoje também há suporte para outras plataformas, como Microsoft Windows e macOS. Como o passo a passo varia de SO para SO, segue o link: https://docs.docker.com/get-docker/.\n  https://www.docker.com/ ↩︎\n Software que executa containers e gerencia as imagens do mesmo. Ex.: Docker e containerd ↩︎\n   ",
+  "wordCount" : "428",
+  "inLanguage": "pt",
+  "image":"https://israelfm.github.io/posts/images/docker-basics-cover.jpeg","datePublished": "2022-11-15T22:51:31-03:00",
+  "dateModified": "2022-11-15T22:51:31-03:00",
+  "author":{
+    "@type": "Person",
+    "name": "Israel"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://israelfm.github.io/posts/docker-basics/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "DevUp",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://israelfm.github.io/assets/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://israelfm.github.io" accesskey="h" title="DevUp (Alt + H)">DevUp</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://israelfm.github.io/search" title="Pesquisa (Alt &#43; /)" accesskey=/>
+                    <span>Pesquisa</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://israelfm.github.io/tags" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://israelfm.github.io">Home</a>&nbsp;»&nbsp;<a href="https://israelfm.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Docker: comentários e notas
+    </h1>
+    <div class="post-description">
+      Comentários pontuais do meu primeiro contato com Docker
+    </div>
+    <div class="post-meta"><span title='2022-11-15 22:51:31 -0300 -03'>terça-feira, 15 de novembro, 2022</span>&nbsp;·&nbsp;3 minutos&nbsp;·&nbsp;Israel&nbsp;|&nbsp;<a href="https://github.com/IsraelFM/israelfm.github.io/issues" rel="noopener noreferrer" target="_blank">Artigo legal, posso sugerir uma mudança?</a>
+
+</div>
+  </header> 
+<figure class="entry-cover"><img loading="lazy" src="https://israelfm.github.io/posts/images/docker-basics-cover.jpeg" alt="Docker">
+        <p>Docker: <em>containerização</em> tão simples quanto parece</p>
+</figure>
+  <div class="post-content"><h2 id="porque-aprender-sobre-o-docker">Porque aprender sobre o Docker?<a hidden class="anchor" aria-hidden="true" href="#porque-aprender-sobre-o-docker">#</a></h2>
+<p>Porque simplesmente é uma das bases do currículo moderno. Você, que está a procura de uma oportunidade naquela empresa gigante, sonhando alto, precisa saber pelo menos a base, para que tenha a condição de se encaixar como um potencial competidor.</p>
+<p>É uma ferramenta muito útil quando falamos de desenvolvimento. Na sequência  falaremos de alguns dos motivos mais icônicos.</p>
+<p>Quando iniciamos um projeto, é costumeiro termos de instalar alguns programas, sendo que toda a instalação é feita &ldquo;na mão&rdquo;. Além disso, alguns desses programas raramente são utilizados após a finalização do projeto. A consequência desse processo, direto na máquina, resulta em &ldquo;lixo&rdquo; e memória inutilmente consumida para manter programas, de certa forma, inativos.</p>
+<p>A situação se repete a cada vez que eu inicio um projeto, um clássico <em>loop</em> infinito de caos e desordem.</p>
+<p><img loading="lazy" src="../images/chaos.gif#center" alt="Chaos"  title="eae"  />
+</p>
+<p>Em um ambiente corporativo, a prática supracitada é definitivamente inviável. Primeiro, pelo esforço que seria demandado e segundo pela inconsistência entre máquinas, já que cada um terá uma configuração própria, além de <em>softwares</em> já instalados e até mesmo Sistema Operacional (SO) diferente entre si. Afinal, quem nunca ouviu:</p>
+<blockquote>
+<p>Na minha máquina funciona!</p>
+<p>— <em>Justicativa do dev após o cliente reclamar de <del>bug</del> feature</em></p>
+</blockquote>
+<p>Agora, você deve estar me perguntando, &ldquo;como assim direto na máquina? Tem outra forma que não essa?&rdquo;. Ao que eu te respondo, &ldquo;é claro, te apresento o Docker&rdquo;.</p>
+<h2 id="o-que-é-docker">O que é Docker?<a hidden class="anchor" aria-hidden="true" href="#o-que-é-docker">#</a></h2>
+<p>É uma ferramenta<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> classificada como <em>container runtime <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></em>. Isso significa que com o Docker eu consigo subir processos (<em>containers</em>) individuais, utilizando a virtualização do sistema operacional.</p>
+<h2 id="containerização-vs-virtualização">Containerização <em>vs</em> Virtualização<a hidden class="anchor" aria-hidden="true" href="#containerização-vs-virtualização">#</a></h2>
+<p>A grande diferença de um <em>container</em> para uma máquina virtual (<em>Virtual Machine - VM</em>), é que <strong>não ocorre a instalação de todo o sistema operacional</strong>.</p>
+<p>Quando há uma máquina virtual operando, ela virtualiza o <em>hardware</em>. Sendo assim, ela passa a ocupar um espaço real de um SO completo na minha máquina.</p>
+<p>Agora, utilizando <em>container</em> a situação é outra. Nós usamos o conceito de imagens &ndash; descritivo do que haverá no <em>container</em> &ndash; relativamente pequenas que sobem e rodam apenas o que for preciso.</p>
+<p>Para finalizar a instalação de uma VM, é necessário dar <em>boot</em> nela. Dispensamos esse processo em <em>container</em>, uma vez que assim que ele subir o processo já estará operando.</p>
+<h2 id="instalação">Instalação<a hidden class="anchor" aria-hidden="true" href="#instalação">#</a></h2>
+<p>O Docker foi originalmente criado para plataformas Linux. Mas com a demanda crescente, hoje também há suporte para outras plataformas, como Microsoft Windows e macOS. Como o passo a passo varia de SO para SO, segue o link: <a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a>.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://www.docker.com/">https://www.docker.com/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><em>Software</em> que executa <em>containers</em> e gerencia as imagens do mesmo. Ex.: Docker e containerd&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://israelfm.github.io/tags/docker/">docker</a></li>
+      <li><a href="https://israelfm.github.io/tags/container/">container</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://israelfm.github.io">DevUp</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
