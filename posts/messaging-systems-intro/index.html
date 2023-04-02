@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Serviços de mensageria: introdução ao conceito | DevUp</title>
+<meta name="keywords" content="mensageria, sistemas-distribuidos">
+<meta name="description" content="Uma abordagem dos principais tópicos">
+<meta name="author" content="Israel">
+<link rel="canonical" href="https://israelfm.github.io/posts/messaging-systems-intro/">
+<meta name="google-site-verification" content="G-55XXDQPS8F">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bccfefac377bc340f06c260aed1bddf49a4354816d7c570d6aac75a997986c95.css" integrity="sha256-vM/vrDd7w0DwbCYK7Rvd9JpDVIFtfFcNaqx1qZeYbJU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://israelfm.github.io/assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://israelfm.github.io/assets/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://israelfm.github.io/assets/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://israelfm.github.io/assets/apple-icon-precomposed.png">
+<link rel="mask-icon" href="https://israelfm.github.io/assets/apple-icon-precomposed.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-55XXDQPS8F"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-55XXDQPS8F', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="Serviços de mensageria: introdução ao conceito" />
+<meta property="og:description" content="Uma abordagem dos principais tópicos" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://israelfm.github.io/posts/messaging-systems-intro/" />
+<meta property="og:image" content="https://miro.medium.com/max/720/1*cQzpk3m45afomqMrhDIW3A.gif" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-21T14:30:00+00:00" />
+<meta property="article:modified_time" content="2023-01-21T14:30:00+00:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://miro.medium.com/max/720/1*cQzpk3m45afomqMrhDIW3A.gif" />
+<meta name="twitter:title" content="Serviços de mensageria: introdução ao conceito"/>
+<meta name="twitter:description" content="Uma abordagem dos principais tópicos"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://israelfm.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Serviços de mensageria: introdução ao conceito",
+      "item": "https://israelfm.github.io/posts/messaging-systems-intro/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Serviços de mensageria: introdução ao conceito",
+  "name": "Serviços de mensageria: introdução ao conceito",
+  "description": "Uma abordagem dos principais tópicos",
+  "keywords": [
+    "mensageria", "sistemas-distribuidos"
+  ],
+  "articleBody": "O que um serviço de mensageria? Um serviço ou sistema de mensageria é uma abordagem comum utilizada em sistemas distribuídos para transferir dados entre aplicações. Desse modo, as aplicações que os usam podem atentar-se exclusivamente ao tratamento desses dados, sem a ocupação de trabalhar a fundo a transmissão ou compartilhamento deles.\nDiversos são os padrões de mensageria, porém vou dar mais atenção no Publish-Subscribe (pub-sub). Dentre os muitos motivos que poderia citar aqui para essa preferência, simplesmente prefiro dizer que é o padrão mais presente nas leituras que fiz e também aquele com o qual tive a oportunidade de trabalhar.\nAgora, antes de destrinchar o pub-sub, precisamos compreender alguns pontos fundamentais como o protocolo utilizado e o fluxo básico de funcionamento.\nO protocolo da mensageria: AMQP O AMQP (Advanced Message Queuing Protocol) é um protocolo de mensagens baseado em fila que fornece garantias de entrega, roteamento baseado em tópicos e suporte a vários formatos de mensagem. Ele é muito utilizado em sistemas de integração e tem suporte em muitas linguagens e plataformas.\n Leitura complementar Há muitos outros protocolos de mensagens tais como STOMP, voltado a aplicativos de streaming, MQTT, direcionado para aplicações em IoT (Internet of Things). E aquém desses, ainda há outros protocolos complementares, presentes em aplicações que utilizam a mensageria:\n HTTP: utilizado para a comunicação entre servidores da web e navegadores da web, mas também pode ser usado para enviar e receber mensagens; TCP: um protocolo de rede usado para garantir a entrega confiável de dados.  Como funciona? Os serviços de mensageria geralmente envolvem três componentes principais, conforme ilustrado na imagem:\n O produtor é o aplicativo que envia a mensagem; A fila é onde as mensagens são armazenadas; O consumidor é o aplicativo que recebe a mensagem.  As mensagens são geralmente enviadas por meio de um protocolo específico, como o AMQP que comentamos anteriormente.\nOs serviços de mensageria utilizam um modelo de publicação e assinatura (ou pub-sub), no qual os usuários podem publicar mensagens em um tópico ou canal específico e outros usuários podem se inscrever para receber essas mensagens.\nMas quais são os benefícios? Os serviços de mensageria oferecem muitas vantagens em relação a outros métodos de comunicação, incluindo:\n Desacoplamento: os sistemas se comunicam sem conhecimento ou dependência direta um do outro; Escalabilidade: o número de produtores e consumidores de mensagens podem ser dimensionados de acordo com a demanda; Resiliência: oferta de garantias de entrega de mensagens e recuperação em caso de falha; Flexibilidade: integração de sistemas heterogêneos e a implementação de diferentes padrões de comunicação.  Serviços disponíveis Existem vários serviços de mensageria disponíveis. Os dois mais populares estão apresentados na Figura abaixo.\nUm servidor de mensagens é um software que gerencia o envio e a recepção de mensagens entre aplicativos. Sendo ele um componente importante de um sistema de mensageria, mas não é o único componente. Ou seja, pode haver um trabalho em adicional quando se usa o RabbitMQ para realizar o gerenciamento de filas em situações específicas, por exemplo.\nJá um sistema de mensageria é um conjunto mais amplo de ferramentas e tecnologias. Além do servidor de mensagens, um sistema de mensageria pode incluir outros componentes, como um mecanismo de gerenciamento de filas, um mecanismo de roteamento de mensagens e um mecanismo de processamento de fluxo.\nAgora, quando usar um ou outro dependerá da necessidade. O RabbitMQ é uma boa escolha quando a entrega confiável e a ordem das mensagens são críticas1, enquanto o Kafka é mais adequado para lidar com grandes volumes de dados em tempo real2.\nUm exemplo de uso Imagine que você quer enviar uma mensagem para um amigo pelo WhatsApp. Sem um serviço de mensageria, você precisaria enviar a mensagem diretamente para o celular dele. Isso funcionaria bem se você estivesse em um ambiente com boa cobertura de rede e o telefone do seu amigo estivesse conectado. Mas se a rede estiver congestionada ou o telefone estiver desligado, a mensagem não será entregue 😔.\nCom um serviço de mensageria, a mensagem que você envia é primeiro direcionada para um servidor central que gerencia as mensagens do WhatsApp. O servidor verifica se o telefone do seu amigo está online e, se estiver, entrega a mensagem. Se o telefone estiver offline, o servidor armazena a mensagem até que o telefone volte a ficar online.\nO serviço de mensageria lida com a entrega da mensagem para você, para que você não precise se preocupar em verificar se seu amigo está online ou se a mensagem foi entregue. E se a mensagem não for entregue imediatamente, você pode ter a certeza de que o servidor continuará tentando entregar a mensagem até que seja bem-sucedido.\n  https://www.cloudamqp.com/blog/why-use-rabbitmq-in-a-microservice-architecture.html ↩︎\n https://kafka.apache.org/intro ↩︎\n   ",
+  "wordCount" : "771",
+  "inLanguage": "pt",
+  "image":"https://miro.medium.com/max/720/1*cQzpk3m45afomqMrhDIW3A.gif","datePublished": "2023-01-21T14:30:00Z",
+  "dateModified": "2023-01-21T14:30:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Israel"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://israelfm.github.io/posts/messaging-systems-intro/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "DevUp",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://israelfm.github.io/assets/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://israelfm.github.io" accesskey="h" title="DevUp (Alt + H)">DevUp</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://israelfm.github.io/search" title="Pesquisa (Alt &#43; /)" accesskey=/>
+                    <span>Pesquisa</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://israelfm.github.io/tags" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://israelfm.github.io">Home</a>&nbsp;»&nbsp;<a href="https://israelfm.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Serviços de mensageria: introdução ao conceito
+    </h1>
+    <div class="post-description">
+      Uma abordagem dos principais tópicos
+    </div>
+    <div class="post-meta"><span title='2023-01-21 14:30:00 +0000 UTC'>sábado, 21 de janeiro, 2023</span>&nbsp;·&nbsp;4 minutos&nbsp;·&nbsp;Israel&nbsp;|&nbsp;<a href="https://github.com/IsraelFM/israelfm.github.io/issues" rel="noopener noreferrer" target="_blank">Artigo legal, posso sugerir uma mudança?</a>
+
+</div>
+  </header> 
+<figure class="entry-cover"><img loading="lazy" src="https://miro.medium.com/max/720/1*cQzpk3m45afomqMrhDIW3A.gif" alt="Mensageria">
+        
+</figure>
+  <div class="post-content"><h2 id="o-que-um-serviço-de-mensageria">O que um serviço de mensageria?<a hidden class="anchor" aria-hidden="true" href="#o-que-um-serviço-de-mensageria">#</a></h2>
+<p>Um serviço ou sistema de mensageria é uma abordagem comum utilizada em sistemas distribuídos para <strong>transferir dados entre aplicações</strong>. Desse modo, as aplicações que os usam podem atentar-se exclusivamente ao tratamento desses dados, sem a ocupação de trabalhar a fundo a transmissão ou compartilhamento deles.</p>
+<p>Diversos são os padrões de mensageria, porém vou dar mais atenção no <em><strong>Publish-Subscribe</strong></em> (<em>pub-sub</em>). Dentre os muitos motivos que poderia citar aqui para essa preferência, simplesmente prefiro dizer que é o padrão mais presente nas leituras que fiz e também aquele com o qual tive a oportunidade de trabalhar.</p>
+<p>Agora, antes de destrinchar o <em>pub-sub</em>, precisamos compreender alguns pontos fundamentais como o protocolo utilizado e o fluxo básico de funcionamento.</p>
+<h3 id="o-protocolo-da-mensageria-amqp">O protocolo da mensageria: AMQP<a hidden class="anchor" aria-hidden="true" href="#o-protocolo-da-mensageria-amqp">#</a></h3>
+<p>O AMQP (<em>Advanced Message Queuing Protocol</em>) é <strong>um protocolo de mensagens baseado em fila</strong> que fornece garantias de entrega, roteamento baseado em tópicos e suporte a vários formatos de mensagem. Ele é muito utilizado em sistemas de integração e tem suporte em muitas linguagens e plataformas.</p>
+<hr>
+<h4 id="leitura-complementar">Leitura complementar<a hidden class="anchor" aria-hidden="true" href="#leitura-complementar">#</a></h4>
+<p>Há muitos outros protocolos de mensagens tais como STOMP, voltado a aplicativos de <em>streaming</em>, MQTT, direcionado para aplicações em IoT (<em>Internet of Things</em>). E aquém desses, ainda há outros protocolos complementares, presentes em aplicações que utilizam a mensageria:</p>
+<ul>
+<li>HTTP: utilizado para a comunicação entre servidores da web e navegadores da web, mas também pode ser usado para enviar e receber mensagens;</li>
+<li>TCP: um protocolo de rede usado para garantir a entrega confiável de dados.</li>
+</ul>
+<h3 id="como-funciona">Como funciona?<a hidden class="anchor" aria-hidden="true" href="#como-funciona">#</a></h3>
+<p>Os serviços de mensageria geralmente envolvem três componentes principais, conforme ilustrado na imagem:</p>
+<ul>
+<li>O <strong>produtor</strong> é o aplicativo que envia a mensagem;</li>
+<li>A <strong>fila</strong> é onde as mensagens são armazenadas;</li>
+<li>O <strong>consumidor</strong> é o aplicativo que recebe a mensagem.</li>
+</ul>
+<p><img loading="lazy" src="../images/messaging-systems-basic-work.png#center" alt="Fluxo básico da comunicação"  title="Fluxo básico da comunicação"  />
+</p>
+<p>As <strong>mensagens</strong> são geralmente enviadas por meio de um protocolo específico, como o AMQP que comentamos anteriormente.</p>
+<p>Os serviços de mensageria utilizam um modelo de publicação e assinatura (ou <em>pub-sub</em>), no qual os usuários podem publicar mensagens em um tópico ou canal específico e outros usuários podem se inscrever para receber essas mensagens.</p>
+<h2 id="mas-quais-são-os-benefícios">Mas quais são os benefícios?<a hidden class="anchor" aria-hidden="true" href="#mas-quais-são-os-benefícios">#</a></h2>
+<p>Os serviços de mensageria oferecem muitas vantagens em relação a outros métodos de comunicação, incluindo:</p>
+<ul>
+<li>Desacoplamento: os sistemas se comunicam sem conhecimento ou dependência direta um do outro;</li>
+<li>Escalabilidade: o número de produtores e consumidores de mensagens podem ser dimensionados de acordo com a demanda;</li>
+<li>Resiliência: oferta de garantias de entrega de mensagens e recuperação em caso de falha;</li>
+<li>Flexibilidade: integração de sistemas heterogêneos e a implementação de diferentes padrões de comunicação.</li>
+</ul>
+<h2 id="serviços-disponíveis">Serviços disponíveis<a hidden class="anchor" aria-hidden="true" href="#serviços-disponíveis">#</a></h2>
+<p>Existem vários serviços de mensageria disponíveis. Os dois mais populares estão apresentados na Figura abaixo.</p>
+<p><img loading="lazy" src="../images/messaging-systems-rabbit-kafka.png#center" alt="Definição do RabbitMQ e Kafka"  title="Definição do RabbitMQ e Kafka"  />
+</p>
+<p>Um <strong>servidor de mensagens</strong> é um <em>software</em> que gerencia o <strong>envio e a recepção de mensagens</strong> entre aplicativos. Sendo ele um componente importante de um sistema de mensageria, mas não é o único componente. Ou seja, pode haver um trabalho em adicional quando se usa o RabbitMQ para realizar o gerenciamento de filas em situações específicas, por exemplo.</p>
+<p>Já um <strong>sistema de mensageria</strong> é um conjunto mais amplo de ferramentas e tecnologias. Além do servidor de mensagens, um sistema de mensageria pode incluir outros componentes, como um mecanismo de <strong>gerenciamento de filas</strong>, um mecanismo de <strong>roteamento de mensagens</strong> e um mecanismo de <strong>processamento de fluxo</strong>.</p>
+<p>Agora, quando usar um ou outro dependerá da necessidade. O RabbitMQ é uma boa escolha quando a entrega confiável e a ordem das mensagens são críticas<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, enquanto o Kafka é mais adequado para lidar com grandes volumes de dados em tempo real<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<h2 id="um-exemplo-de-uso">Um exemplo de uso<a hidden class="anchor" aria-hidden="true" href="#um-exemplo-de-uso">#</a></h2>
+<p>Imagine que você quer enviar uma mensagem para um amigo pelo WhatsApp. Sem um serviço de mensageria, você precisaria enviar a mensagem diretamente para o celular dele. Isso funcionaria bem se você estivesse em um ambiente com boa cobertura de rede e o telefone do seu amigo estivesse conectado. Mas se a rede estiver congestionada ou o telefone estiver desligado, a mensagem não será entregue 😔.</p>
+<p>Com um serviço de mensageria, a mensagem que você envia é primeiro direcionada para um servidor central que gerencia as mensagens do WhatsApp. O servidor verifica se o telefone do seu amigo está <em>online</em> e, se estiver, entrega a mensagem. Se o telefone estiver <em>offline</em>, o servidor armazena a mensagem até que o telefone volte a ficar <em>online</em>.</p>
+<p>O serviço de mensageria lida com a entrega da mensagem para você, para que você não precise se preocupar em verificar se seu amigo está <em>online</em> ou se a mensagem foi entregue. E se a mensagem não for entregue imediatamente, você pode ter a certeza de que o servidor continuará tentando entregar a mensagem até que seja bem-sucedido.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://www.cloudamqp.com/blog/why-use-rabbitmq-in-a-microservice-architecture.html">https://www.cloudamqp.com/blog/why-use-rabbitmq-in-a-microservice-architecture.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://kafka.apache.org/intro">https://kafka.apache.org/intro</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://israelfm.github.io/tags/mensageria/">mensageria</a></li>
+      <li><a href="https://israelfm.github.io/tags/sistemas-distribuidos/">sistemas-distribuidos</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://israelfm.github.io">DevUp</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
